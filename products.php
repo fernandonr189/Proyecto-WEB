@@ -1,3 +1,26 @@
+<?php
+    session_start();
+    @$user = $_SESSION['name'];
+    @$id = $_SESSION['id'];
+    $shopping_cart_button = "
+    <form action=\"shoppingKart.php\" class=\"p-1\">
+        <button class=\"btn btn-outline-dark\" type=\"submit\">
+            <i class=\"bi-cart-fill me-1\"> Cart</i>
+        </button>
+    </form>";
+    $login_button = "
+    <form action=\"login.php\" class=\"p-1\">
+        <button class=\"btn btn-outline-dark\" type=\"submit\">
+            <i class=\"bi-door-open me-1\"> Login</i>
+        </button>
+    </form>";
+    $logout_button = "
+    <form action=\"php/logout.php\" class=\"p-1\">
+        <button class=\"btn btn-outline-dark\" type=\"submit\">
+            <i class=\"bi-door-open me-1\"> Logout</i>
+        </button>
+    </form>";
+?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
     <head>
@@ -21,32 +44,23 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
                     </ul>
-                    <form action="shoppingKart.html" class="p-1">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"> Cart</i>
-                        </button>
-                    </form>
-                    <form action="login.html" class="p-1">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-door-open me-1"> Login</i>
-                        </button>
-                    </form>
+                    <?php
+                        if(isset($user)) {
+                            echo $shopping_cart_button;
+                            echo $logout_button;
+                        }
+                        else {
+                            echo $login_button;
+                        }
+                    ?>
                 </div>
             </div>
         </nav>
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-                </div>
-            </div>
-        </header>
+
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -60,7 +74,9 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Popular Item</h5>
+                                    <a href="product.php" class="link-dark text-decoration-none">
+                                        <h5 class="fw-bolder">Popular Item</h5>
+                                    </a>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>
@@ -75,7 +91,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.html">Add to cart</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.php">Add to cart</a></div>
                             </div>
                         </div>
                     </div>
@@ -87,7 +103,9 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Popular Item</h5>
+                                    <a href="product.php" class="link-dark text-decoration-none">
+                                        <h5 class="fw-bolder">Popular Item</h5>
+                                    </a>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>
@@ -102,7 +120,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.html">Add to cart</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.php">Add to cart</a></div>
                             </div>
                         </div>
                     </div>

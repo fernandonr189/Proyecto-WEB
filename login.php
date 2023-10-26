@@ -1,3 +1,26 @@
+<?php
+    session_start();
+    @$user = $_SESSION['name'];
+    @$id = $_SESSION['id'];
+    $shopping_cart_button = "
+    <form action=\"shoppingKart.php\" class=\"p-1\">
+        <button class=\"btn btn-outline-dark\" type=\"submit\">
+            <i class=\"bi-cart-fill me-1\"> Cart</i>
+        </button>
+    </form>";
+    $login_button = "
+    <form action=\"login.php\" class=\"p-1\">
+        <button class=\"btn btn-outline-dark\" type=\"submit\">
+            <i class=\"bi-door-open me-1\"> Login</i>
+        </button>
+    </form>";
+    $logout_button = "
+    <form action=\"php/logout.php\" class=\"p-1\">
+        <button class=\"btn btn-outline-dark\" type=\"submit\">
+            <i class=\"bi-door-open me-1\"> Logout</i>
+        </button>
+    </form>";
+?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
     <head>
@@ -21,20 +44,19 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                        <li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
                     </ul>
-                    <form action="shoppingKart.html" class="p-1">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"> Cart</i>
-                        </button>
-                    </form>
-                    <form action="login.html" class="p-1">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-door-open me-1"> Login</i>
-                        </button>
-                    </form>
+                    <?php
+                        if(isset($user)) {
+                            echo $shopping_cart_button;
+                            echo $logout_button;
+                        }
+                        else {
+                            echo $login_button;
+                        }
+                    ?>
                 </div>
             </div>
         </nav>
@@ -44,19 +66,19 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
                     <div class="col-md-6">
-                        <form>
+                        <form action="php/login.php" method="post">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1">
+                                <input name="password" type="password" class="form-control" id="exampleInputPassword1">
                             </div>
                                 <button type="submit" class="btn btn-outline-dark">Login</button>
                             <div id="emailHelp" class="form-text my-2">
                                 Not a member?
-                                <a href="signup.html">sign up</a>
+                                <a href="signup.php">sign up</a>
                             </div>
                         </form>
                     </div>
