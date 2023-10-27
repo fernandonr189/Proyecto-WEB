@@ -3,6 +3,8 @@
     session_start();
     @$user = $_SESSION['name'];
     @$id = $_SESSION['id'];
+    @$admin_id = $_SESSION['admin_id'];
+    @$admin_name = $_SESSION['admin_name'];
     $shopping_cart_button = "
     <form action=\"shoppingKart.php\" class=\"p-1\">
         <button class=\"btn btn-outline-dark\" type=\"submit\">
@@ -54,7 +56,13 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Home</a></li>
+                        <?php
+                            if(!isset($admin_id)) {
+                                echo "
+                                <li class=\"nav-item\"><a class=\"nav-link active\" aria-current=\"page\" href=\"index.php\">Home</a></li>
+                                ";
+                            }
+                        ?>
                         <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
                     </ul>
