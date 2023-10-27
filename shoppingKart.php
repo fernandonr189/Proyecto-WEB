@@ -104,6 +104,9 @@
                                                     </div>
                                                     <!-- Product price-->
                                                     " . $rows['sum(s.AMOUNT)'] . "x$" .$rows['PRICE'] . "
+                                                    <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent my-3\">
+                                                        <div class=\"text-center\"><a class=\"btn btn-outline-danger mt-auto\" href=\"php/removeFromCart.php?productId=" . $rows['PRODUCT_ID'] . "\">Eliminar</a></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -130,7 +133,7 @@
                                 echo "Total: $" . $price;
                             ?>
                             <div class="my-4">
-                                <form action="php/logout.php" class="p-1">
+                                <form action="php/purchaseCart.php" class="p-1">
                                     <button class="btn btn-outline-dark" type="submit">
                                         <i class="bi bi-bag me-1"> Comprar carrito</i>
                                     </button>
