@@ -2,6 +2,8 @@
     session_start();
     @$user = $_SESSION['name'];
     @$id = $_SESSION['id'];
+    @$admin_id = $_SESSION['admin_id'];
+    @$admin_name = $_SESSION['admin_name'];
     $shopping_cart_button = "
     <form action=\"shoppingKart.php\" class=\"p-1\">
         <button class=\"btn btn-outline-dark\" type=\"submit\">
@@ -18,6 +20,12 @@
     <form action=\"php/logout.php\" class=\"p-1\">
         <button class=\"btn btn-outline-dark\" type=\"submit\">
             <i class=\"bi-door-open me-1\"> Logout</i>
+        </button>
+    </form>";
+    $add_product_button = "
+    <form action=\"admin/addProduct.php\" class=\"p-1\">
+        <button class=\"btn btn-outline-dark\" type=\"submit\">
+            <i class=\"bi bi-plus-circle me-1\"> Add product</i>
         </button>
     </form>";
 ?>
@@ -62,10 +70,16 @@
         </nav>
 
         <!-- Section-->
+        <div class="d-flex align-items-center justify-content-center m-5">
+            <?php
+                if(isset($admin_id)) {
+                    echo $add_product_button;
+                }
+            ?>
+        </div>
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->

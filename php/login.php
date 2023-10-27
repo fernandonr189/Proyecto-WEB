@@ -12,9 +12,9 @@
     }
     if($user = mysqli_fetch_assoc($sql)) {
         $_SESSION["admin_email"] = $email;
-        $_SESSION["admin_name"] = $user["name"]." ".$user["last_name"];
-        $_SESSION["admin_id"] = $user['id'];
-        header("location: ../admin.php?search=");
+        $_SESSION["admin_name"] = $user["NAME"];
+        $_SESSION["admin_id"] = $user['ID'];
+        header("location: ../admin/addProduct.php");
     }
 
     $sql = mysqli_query($conn, "SELECT * FROM USERS WHERE EMAIL = '$email' AND PASSWORD ='$password'");
