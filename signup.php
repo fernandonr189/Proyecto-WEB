@@ -54,7 +54,12 @@
                             echo $logout_button;
                         }
                         else {
-                            echo $login_button;
+                            if(isset($admin_id)) {
+                                echo $logout_button;
+                            }
+                            else {
+                                echo $login_button;
+                            }
                         }
                     ?>
                 </div>

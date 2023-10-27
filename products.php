@@ -67,7 +67,12 @@
                             echo $logout_button;
                         }
                         else {
-                            echo $login_button;
+                            if(isset($admin_id)) {
+                                echo $logout_button;
+                            }
+                            else {
+                                echo $login_button;
+                            }
                         }
                     ?>
                 </div>
@@ -110,11 +115,24 @@
                                             <!-- Product price-->
                                             " . $rows['PRICE'] . "
                                         </div>
-                                    </div>
-                                    <!-- Product actions-->
-                                    <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">
-                                        <div class=\"text-center\"><a class=\"btn btn-outline-dark mt-auto\" href=\"php/addToCart.php?productId=" . $rows['ID'] . "&amount=1" . "\">Add to cart</a></div>
-                                    </div>
+                                    </div>";
+                                    if(isset($admin_id)) {
+                                        echo "
+                                        <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">
+                                            <div class=\"text-center\">
+                                                <a class=\"btn btn-outline-danger mt-auto\" href=\"php/removeProduct.php?productId=" . $rows['ID'] . "\">Eliminar</a>
+                                            </div>
+                                        </div>
+                                        ";
+                                    }
+                                    else {
+                                        echo "
+                                        <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">
+                                            <div class=\"text-center\"><a class=\"btn btn-outline-dark mt-auto\" href=\"php/addToCart.php?productId=" . $rows['ID'] . "&amount=1" . "\">Add to cart</a></div>
+                                        </div>
+                                        ";
+                                    }
+                                   echo " 
                                 </div>
                             </div>
                             ";
