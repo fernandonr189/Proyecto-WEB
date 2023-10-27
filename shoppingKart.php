@@ -22,7 +22,7 @@
         </button>
     </form>";
 
-	$sql = "SELECT p.NAME, p.IMAGE, p.PRICE, sum(p.PRICE), p.DESCRIPTION, sum(s.AMOUNT), s.ID FROM PRODUCTS p, SHOPPING_CART s, USERS u WHERE s.PRODUCT_ID = p.ID AND s.USER_ID = u.ID AND u.ID = $id GROUP BY p.name";
+	$sql = "SELECT p.NAME, p.IMAGE, p.PRICE, sum(p.PRICE), p.DESCRIPTION, sum(s.AMOUNT), s.ID, s.PRODUCT_ID FROM PRODUCTS p, SHOPPING_CART s, USERS u WHERE s.PRODUCT_ID = p.ID AND s.USER_ID = u.ID AND u.ID = $id GROUP BY p.name";
 	$result = $conn->query($sql);
     $concepts = array();
 
@@ -91,7 +91,7 @@
                                             <div class=\"card-body p-4\">
                                                 <div class=\"text-center\">
                                                     <!-- Product name-->
-                                                    <a href=\"product.php" . "?product_id=" . $rows['ID'] . " \" class=\"link-dark text-decoration-none\">
+                                                    <a href=\"product.php" . "?product_id=" . $rows['PRODUCT_ID'] . " \" class=\"link-dark text-decoration-none\">
                                                         <h5 class=\"fw-bolder\">" . $rows['NAME'] . "</h5>
                                                     </a>
                                                     <!-- Product reviews-->
@@ -122,15 +122,20 @@
                             <?php
                                 foreach($concepts as $concept) {
                                     echo "
-                                    <div>
+                                    <div class=\"my-2\">
                                         " . $concept . "
-                                    </div>
-                                    <hr>";
+                                    </div>";
                                 }
+                                echo "<hr>";
+                                echo "Total: $" . $price;
                             ?>
-                            <?php
-                            echo "Total: $" . $price;
-                            ?>
+                            <div class="my-4">
+                                <form action="php/logout.php" class="p-1">
+                                    <button class="btn btn-outline-dark" type="submit">
+                                        <i class="bi bi-bag me-1"> Comprar carrito</i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

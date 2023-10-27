@@ -1,7 +1,8 @@
 <?php
 include 'connection.php';
+session_start();
 
-$id = $_GET['id'];
+$id = $_SESSION['id'];
 $productId = $_GET['productId'];
 $amount = $_GET['amount'];
 
