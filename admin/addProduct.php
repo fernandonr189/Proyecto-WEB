@@ -64,7 +64,8 @@
                         <?php
                             if(isset($editing)) {
                                 echo "
-                                <form action=\"../php/addProduct.php\", method=\"post\" enctype=\"multipart/form-data\">
+                                <form action=\"../php/modifyProduct.php\", method=\"post\" enctype=\"multipart/form-data\">
+                                    <input hidden=true name=\"id\" type=\"text\" class=\"form-control\" id=\"id\" value=\"" . $product['ID'] . "\">
                                     <div class=\"mb-3\">
                                         <label for=\"name\" class=\"form-label\">Name</label>
                                         <input name=\"name\" type=\"text\" class=\"form-control\" id=\"name\" value=\"" . $product['NAME'] . "\">
