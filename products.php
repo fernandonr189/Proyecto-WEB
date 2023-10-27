@@ -130,6 +130,13 @@
                                             </div>
                                         </div>
                                         ";
+                                        echo "
+                                        <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">
+                                            <div class=\"text-center\">
+                                                <a class=\"btn btn-outline-dark mt-auto\" href=\"admin/addProduct.php?editing=" . 1 . "&productId=" . $rows['ID'] . "\">Modificar</a>
+                                            </div>
+                                        </div>
+                                        ";
                                     }
                                     else {
                                         echo "

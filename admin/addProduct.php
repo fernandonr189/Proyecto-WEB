@@ -1,19 +1,10 @@
 <?php
+	include '../php/connection.php';
     session_start();
     @$user = $_SESSION['admin_name'];
     @$id = $_SESSION['admin_id'];
-    $shopping_cart_button = "
-    <form action=\"shoppingKart.php\" class=\"p-1\">
-        <button class=\"btn btn-outline-dark\" type=\"submit\">
-            <i class=\"bi-cart-fill me-1\"> Cart</i>
-        </button>
-    </form>";
-    $login_button = "
-    <form action=\"../login.php\" class=\"p-1\">
-        <button class=\"btn btn-outline-dark\" type=\"submit\">
-            <i class=\"bi-door-open me-1\"> Login</i>
-        </button>
-    </form>";
+    @$productId = $_GET['productId'];
+    @$editing = $_GET['editing'];
     $logout_button = "
     <form action=\"../php/logout.php\" class=\"p-1\">
         <button class=\"btn btn-outline-dark\" type=\"submit\">
@@ -22,6 +13,13 @@
     </form>";
     if(!isset($user)) {
         header("location: ../index.php");
+    }
+
+    if(isset($editing)) {
+        $sql = "SELECT * FROM PRODUCTS WHERE ID = '$productId'";
+        $result = $conn->query($sql);
+        $conn->close();
+        $product = $result->fetch_assoc();
     }
 ?>
 <!DOCTYPE html>
@@ -61,31 +59,62 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src=<?php if(isset($editing)) {echo "\"../php/" . $product['IMAGE'] . "\""; } else { echo "\"https://dummyimage.com/600x700/dee2e6/6c757d.jpg\""; }?> alt="..." /></div>
                     <div class="col-md-6">
-                        <form action="../php/addProduct.php", method="post" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input name="name" type="text" class="form-control" id="name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <input name="description" type="text" class="form-control" id="description">
-                            </div>
-                            <div class="mb-3">
-                                <label for="price" class="form-label">Price</label>
-                                <input name="price" type="text" class="form-control" id="price">
-                            </div>
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Image</label>
-                                <input type="file" name="image" id="image">
-                            </div>
-                            <div class="mb-3">
-                                <label for="type" class="form-label">Type</label>
-                                <input name="type" type="text" class="form-control" id="type">
-                            </div>
-                                <button type="submit" class="btn btn-outline-dark">Submit</button>
-                        </form>
+                        <?php
+                            if(isset($editing)) {
+                                echo "
+                                <form action=\"../php/addProduct.php\", method=\"post\" enctype=\"multipart/form-data\">
+                                    <div class=\"mb-3\">
+                                        <label for=\"name\" class=\"form-label\">Name</label>
+                                        <input name=\"name\" type=\"text\" class=\"form-control\" id=\"name\" value=\"" . $product['NAME'] . "\">
+                                    </div>
+                                    <div class=\"mb-3\">
+                                        <label for=\"description\" class=\"form-label\">Description</label>
+                                        <input name=\"description\" type=\"text\" class=\"form-control\" id=\"description\" value=\"" . $product['DESCRIPTION'] . "\">
+                                    </div>
+                                    <div class=\"mb-3\">
+                                        <label for=\"price\" class=\"form-label\">Price</label>
+                                        <input name=\"price\" type=\"text\" class=\"form-control\" id=\"price\" value=\"" . $product['PRICE'] . "\">
+                                    </div>
+                                    <div class=\"mb-3\">
+                                        <label for=\"image\" class=\"form-label\">Image</label>
+                                        <input type=\"file\" name=\"image\" id=\"image\">
+                                    </div>
+                                    <div class=\"mb-3\">
+                                        <label for=\"type\" class=\"form-label\">Type</label>
+                                        <input name=\"type\" type=\"text\" class=\"form-control\" id=\"type\" value=\"" . $product['TYPE'] . "\">
+                                    </div>
+                                        <button type=\"submit\" class=\"btn btn-outline-dark\">Submit</button>
+                                </form>";
+                            }
+                            else {
+                                echo "
+                                <form action=\"../php/addProduct.php\", method=\"post\" enctype=\"multipart/form-data\">
+                                    <div class=\"mb-3\">
+                                        <label for=\"name\" class=\"form-label\">Name</label>
+                                        <input name=\"name\" type=\"text\" class=\"form-control\" id=\"name\">
+                                    </div>
+                                    <div class=\"mb-3\">
+                                        <label for=\"description\" class=\"form-label\">Description</label>
+                                        <input name=\"description\" type=\"text\" class=\"form-control\" id=\"description\">
+                                    </div>
+                                    <div class=\"mb-3\">
+                                        <label for=\"price\" class=\"form-label\">Price</label>
+                                        <input name=\"price\" type=\"text\" class=\"form-control\" id=\"price\">
+                                    </div>
+                                    <div class=\"mb-3\">
+                                        <label for=\"image\" class=\"form-label\">Image</label>
+                                        <input type=\"file\" name=\"image\" id=\"image\">
+                                    </div>
+                                    <div class=\"mb-3\">
+                                        <label for=\"type\" class=\"form-label\">Type</label>
+                                        <input name=\"type\" type=\"text\" class=\"form-control\" id=\"type\">
+                                    </div>
+                                        <button type=\"submit\" class=\"btn btn-outline-dark\">Submit</button>
+                                </form>";
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
