@@ -3,6 +3,7 @@
     session_start();
     @$user = $_SESSION['name'];
     @$id = $_SESSION['id'];
+    @$admin_id = $_SESSION['admin_id'];
     $shopping_cart_button = "
     <form action=\"shoppingKart.php\" class=\"p-1\">
         <button class=\"btn btn-outline-dark\" type=\"submit\">
@@ -98,14 +99,20 @@
                         </div>
                         <p class="lead"><?php echo $product_description; ?></p>
                         <div class="d-flex">
-                            <form class="d-flex" action="php/addToCart.php" method="get">
-                                <input hidden=true name="productId" value=<?php echo "\"" . $product_id . "\""; ?> type="text">
-                                <input name="amount" class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                                <button  class="btn btn-outline-dark flex-shrink-0" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Add to cart
-                                </button>
-                            </form>
+                            <?php
+                                if(!isset($admin_id)) {
+                                    echo "
+                                    <form class=\"d-flex\" action=\"php/addToCart.php\" method=\"get\">
+                                        <input hidden=true name=\"productId\" value=\"" . $product_id . "\" type=\"text\">
+                                        <input name=\"amount\" class=\"form-control text-center me-3\" id=\"inputQuantity\" type=\"num\" value=\"1\" style=\"max-width: 3rem\" />
+                                        <button  class=\"btn btn-outline-dark flex-shrink-0\" type=\"submit\">
+                                            <i class=\"bi-cart-fill me-1\"></i>
+                                            Add to cart
+                                        </button>
+                                    </form>
+                                    ";
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
