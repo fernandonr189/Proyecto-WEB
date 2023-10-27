@@ -1,4 +1,5 @@
 <?php
+	include 'php/connection.php';
     session_start();
     @$user = $_SESSION['name'];
     @$id = $_SESSION['id'];
@@ -20,6 +21,15 @@
             <i class=\"bi-door-open me-1\"> Logout</i>
         </button>
     </form>";
+
+	$sql = "SELECT p.NAME, p.IMAGE, p.PRICE, sum(p.PRICE), p.DESCRIPTION, sum(s.AMOUNT), s.ID FROM PRODUCTS p, SHOPPING_CART s, USERS u WHERE s.PRODUCT_ID = p.ID AND s.USER_ID = u.ID AND u.ID = $id GROUP BY p.name";
+	$result = $conn->query($sql);
+    $concepts = array();
+
+	//$sql_price = "SELECT sum(p.price) FROM products p, shopping_kart s, user_login_info u WHERE s.product_id = p.id AND s.user_id = u.id AND u.id = $id";
+	//$result_price = $conn->query($sql_price);
+
+	$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -67,60 +77,40 @@
                 <section class="py-5">
                     <div class="container px-4 px-lg-5 mt-5">
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                            <div class="col mb-5">
-                                <div class="card h-100">
-                                    <!-- Product image-->
-                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                                    <!-- Product details-->
-                                    <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <!-- Product name-->
-                                            <h5 class="fw-bolder">Popular Item</h5>
-                                            <!-- Product reviews-->
-                                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
+                            <?php
+                                $price = 0;
+                                while($rows = $result->fetch_assoc()) {
+                                    $price = $price + $rows['sum(p.PRICE)'];
+                                    array_push($concepts, $rows['NAME'] . " x" . $rows['sum(s.AMOUNT)'] . " " . "$" . $rows['sum(p.PRICE)'] . " ");
+                                    echo "
+                                    <div class=\"col mb-5\">
+                                        <div class=\"card h-100\">
+                                            <!-- Product image-->
+                                            <img class=\"card-img-top p-5 \" src=\"php/" . $rows['IMAGE'] . "\" alt=\"...\" />
+                                            <!-- Product details-->
+                                            <div class=\"card-body p-4\">
+                                                <div class=\"text-center\">
+                                                    <!-- Product name-->
+                                                    <a href=\"product.php" . "?product_id=" . $rows['ID'] . " \" class=\"link-dark text-decoration-none\">
+                                                        <h5 class=\"fw-bolder\">" . $rows['NAME'] . "</h5>
+                                                    </a>
+                                                    <!-- Product reviews-->
+                                                    <div class=\"d-flex justify-content-center small text-warning mb-2\">
+                                                        <div class=\"bi-star-fill\"></div>
+                                                        <div class=\"bi-star-fill\"></div>
+                                                        <div class=\"bi-star-fill\"></div>
+                                                        <div class=\"bi-star-fill\"></div>
+                                                        <div class=\"bi-star-fill\"></div>
+                                                    </div>
+                                                    <!-- Product price-->
+                                                    " . $rows['sum(s.AMOUNT)'] . "x$" .$rows['PRICE'] . "
+                                                </div>
                                             </div>
-                                            <!-- Product price-->
-                                            $40.00
                                         </div>
                                     </div>
-                                    <!-- Product actions-->
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.php">Add to cart</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col mb-5">
-                                <div class="card h-100">
-                                    <!-- Product image-->
-                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                                    <!-- Product details-->
-                                    <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <!-- Product name-->
-                                            <h5 class="fw-bolder">Popular Item</h5>
-                                            <!-- Product reviews-->
-                                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                                <div class="bi-star-fill"></div>
-                                            </div>
-                                            <!-- Product price-->
-                                            $40.00
-                                        </div>
-                                    </div>
-                                    <!-- Product actions-->
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="product.php">Add to cart</a></div>
-                                    </div>
-                                </div>
-                            </div>
+                                    ";
+                                }
+                            ?>
                         </div>
                     </div>
                 </section>
@@ -128,21 +118,20 @@
             <div class="col-md-4">
                 <div class="p-5">
                     <div class="container p-4 m-1 bg-light  rounded">
-                        <form>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1">
-                            </div>
-                                <button type="submit" class="btn btn-outline-dark">Login</button>
-                            <div id="emailHelp" class="form-text my-2">
-                                Not a member?
-                                <a href="signup.php">sign up</a>
-                            </div>
-                        </form>
+                        <div>
+                            <?php
+                                foreach($concepts as $concept) {
+                                    echo "
+                                    <div>
+                                        " . $concept . "
+                                    </div>
+                                    <hr>";
+                                }
+                            ?>
+                            <?php
+                            echo "Total: $" . $price;
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
