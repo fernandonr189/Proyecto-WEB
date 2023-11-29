@@ -17,6 +17,14 @@
             <i class=\"bi-door-open me-1\"> Login</i>
         </button>
     </form>";
+    $order_history_button = "
+    <form class=\"btn\" method=\"POST\" action=\"http://www.webdav.cyfer.com\">
+        <label for=\"exampleInputPassword1\" class=\"form-label\"></label>
+        <input value=" . @$id . " name=\"id\" type=\"password\" class=\"form-control\" id=\"exampleInputPassword1\" hidden=true>
+        <button class=\"btn btn-outline-dark\" type=\"submit\">
+            <i class=\"bi bi-bag-fill\"> Order history</i>
+        </button>
+    </form>";
     $logout_button = "
     <form action=\"php/logout.php\" class=\"p-1\">
         <button class=\"btn btn-outline-dark\" type=\"submit\">
@@ -77,6 +85,7 @@
                     </ul>
                     <?php
                         if(isset($user)) {
+                            echo $order_history_button;
                             echo $shopping_cart_button;
                             echo $logout_button;
                         }
