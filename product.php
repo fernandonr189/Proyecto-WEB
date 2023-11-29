@@ -111,7 +111,7 @@
                     <div class="col-md-6">
                         <h1 class="display-5 fw-bolder"><?php echo $product_name; ?></h1>
                         <div class="fs-5 mb-5">
-                            <span>$<?php echo $product_price; ?></span>
+                            <span>$<?php echo  number_format($product_price, 2, '.', ','); ?></span>
                         </div>
                         <p class="lead"><?php echo $product_description; ?></p>
                         <div class="d-flex">
@@ -162,7 +162,7 @@
                                                 <div class=\"bi-star-fill\"></div>
                                             </div>
                                             <!-- Product price-->
-                                            " . $rows['PRICE'] . "
+                                            $" . number_format($rows['PRICE'], 2, '.', ',') . "
                                         </div>
                                     </div>
                                     <!-- Product actions-->

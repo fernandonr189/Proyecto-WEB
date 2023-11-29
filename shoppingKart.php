@@ -100,7 +100,7 @@
                                 $price = 0;
                                 while($rows = $result->fetch_assoc()) {
                                     $price = $price + $rows['sum(p.PRICE)'];
-                                    array_push($concepts, $rows['NAME'] . " x" . intval($rows['sum(s.AMOUNT)'], 10) . " " . "$" . $rows['sum(p.PRICE)'] . " ");
+                                    array_push($concepts, $rows['NAME'] . " x" . intval($rows['sum(s.AMOUNT)'], 10) . " " . "$" . number_format($rows['sum(p.PRICE)'], 2, '.', ',') . " ");
                                     echo "
                                     <div class=\"col mb-5\">
                                         <div class=\"card h-100\">
@@ -122,7 +122,7 @@
                                                         <div class=\"bi-star-fill\"></div>
                                                     </div>
                                                     <!-- Product price-->
-                                                    " . intval($rows['sum(s.AMOUNT)'], 10) . "x$" .$rows['PRICE'] . "
+                                                    " . intval($rows['sum(s.AMOUNT)'], 10) . "x $" .number_format($rows['PRICE'], 2, '.', ',') . "
                                                     <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent my-3\">
                                                         <div class=\"text-center\"><a class=\"btn btn-outline-danger mt-auto\" href=\"php/removeFromCart.php?productId=" . $rows['PRODUCT_ID'] . "\">Eliminar</a></div>
                                                     </div>
@@ -149,7 +149,7 @@
                                     </div>";
                                 }
                                 echo "<hr>";
-                                echo "Total: $" . $price;
+                                echo "Total: $" . number_format($price, 2, '.', ',');
                             ?>
                             <div class="my-4">
                                 <form action="php/purchaseCart.php" class="p-1">

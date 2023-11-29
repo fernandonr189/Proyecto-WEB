@@ -124,7 +124,7 @@
                                             <div class=\"bi-star-fill\"></div>
                                         </div>
                                         <!-- Product price-->
-                                        " . $rows['PRICE'] . "
+                                        $" . number_format($rows['PRICE'], 2, '.', ',') . "
                                     </div>
                                 </div>";
                                 if(isset($id)) {
