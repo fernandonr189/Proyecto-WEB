@@ -61,7 +61,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">Start Bootstrap</a>
+                <a class="navbar-brand" href="#!">CyFer</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -147,7 +147,7 @@
                                         </div>
                                         ";
                                     }
-                                    else {
+                                    if(isset($id)) {
                                         echo "
                                         <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">
                                             <div class=\"text-center\"><a class=\"btn btn-outline-dark mt-auto\" href=\"php/addToCart.php?productId=" . $rows['ID'] . "&amount=1" . "\">Add to cart</a></div>

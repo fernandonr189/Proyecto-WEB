@@ -36,9 +36,6 @@
 	$result = $conn->query($sql);
     $concepts = array();
 
-	//$sql_price = "SELECT sum(p.price) FROM products p, shopping_kart s, user_login_info u WHERE s.product_id = p.id AND s.user_id = u.id AND u.id = $id";
-	//$result_price = $conn->query($sql_price);
-
 	$conn->close();
 ?>
 <!DOCTYPE html>
@@ -60,7 +57,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">Start Bootstrap</a>
+                <a class="navbar-brand" href="#!">CyFer</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -103,7 +100,7 @@
                                 $price = 0;
                                 while($rows = $result->fetch_assoc()) {
                                     $price = $price + $rows['sum(p.PRICE)'];
-                                    array_push($concepts, $rows['NAME'] . " x" . $rows['sum(s.AMOUNT)'] . " " . "$" . $rows['sum(p.PRICE)'] . " ");
+                                    array_push($concepts, $rows['NAME'] . " x" . intval($rows['sum(s.AMOUNT)'], 10) . " " . "$" . $rows['sum(p.PRICE)'] . " ");
                                     echo "
                                     <div class=\"col mb-5\">
                                         <div class=\"card h-100\">
@@ -125,7 +122,7 @@
                                                         <div class=\"bi-star-fill\"></div>
                                                     </div>
                                                     <!-- Product price-->
-                                                    " . $rows['sum(s.AMOUNT)'] . "x$" .$rows['PRICE'] . "
+                                                    " . intval($rows['sum(s.AMOUNT)'], 10) . "x$" .$rows['PRICE'] . "
                                                     <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent my-3\">
                                                         <div class=\"text-center\"><a class=\"btn btn-outline-danger mt-auto\" href=\"php/removeFromCart.php?productId=" . $rows['PRODUCT_ID'] . "\">Eliminar</a></div>
                                                     </div>
