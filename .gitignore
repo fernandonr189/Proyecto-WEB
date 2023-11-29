@@ -1,2 +1,5 @@
 php/images/1.png
 php/images/2.png
+php/vendor
+php/composer.lock
+php/composer.json

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+curl --user 'webdav_user:12' -T $1 'http://www.webdav.cyfer.com/' -sw '%{http_code}'
+rm $1
